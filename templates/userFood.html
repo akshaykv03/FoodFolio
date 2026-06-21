@@ -1,0 +1,174 @@
+{% extends 'userHome.html' %} 
+{% block content %}
+
+
+<!-- User Registration Section -->
+<section id="register" class="register section">
+    
+    <!-- Menu Section -->
+    <section id="menu" class="menu section">
+
+        <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2></h2>
+        <p><span>Explore</span> <span class="description-title">Food Items</span></p>
+    </div>
+    <!-- End Section Title -->
+  
+        <div class="container">
+  
+          
+  
+          <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+  
+            <div class="tab-pane fade active show" id="menu-starters">
+            
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+                <div >
+                    <form action="" method="post" enctype="multipart/form-data" class="registration-form needs-validation" novalidate data-aos="fade-up" data-aos-delay="200">
+                        {% csrf_token %}
+                        <center>
+                            <div class="row g-3">
+                            
+                                <center>
+                                    <div class="col-6">
+                                        <select name="goal" id="" class="form-control">
+                                            <option value="">Enter nutrition goal</option>
+                                            <option value="Weight loss">Weight loss</option>
+                                            <option value="Weight Gain">Weight Gain</option>
+                                            <option value="Balanced Diet">Balanced Diet</option>
+                                        </select><br>
+                                        <button type="submit" class="btn btn-primary px-4 py-2">Search</button>
+                                        </div>
+                                    
+                                </center>
+                            </div>
+                        </center>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+            
+              <br><br><br><br>
+  
+              <div class="row gy-5">
+                {% for i in food %}
+                <div class="col-lg-4 menu-item">
+                    
+                  <a href="static/media/{{ i.image }}" class="glightbox"><img src="static/media/{{ i.image }}" class="menu-img img-fluid" alt=""></a>
+                  <h4>{{ i.name }}</h4> <br>
+                  <h6><b>Goal : {{ i.goal }}</b></h6>
+                  <p class="ingredients"> 
+                    {{ i.desc }}
+                  </p>
+                  <p > <strong>Incredients: </strong>
+                    {{ i.incredients }}
+                  </p>
+                  <p > <strong>Nutrients: </strong>
+                    {{ i.nutrients }}
+                  </p>
+                  <h6 > <strong>Schedule Food Time: </strong>
+                    {{ i.time }}
+                  </h6>
+                  <p > <strong>Amount: </strong>
+                    {{ i.amount }}
+                  </p>
+                  <p class="price">
+                    {{ i.price }} Rs/-
+                  </p>
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="pid" value="{{ i.id }}" hidden>
+                    <input class="form-control mb-2" type="number" name="count" min="1" max="{{ i.qty }}">
+                    <button class="btn btn-success w-100 mt-3">Add to Cart</button>
+                  </form>
+              
+                </div><!-- Menu Item -->
+                {% endfor %}
+
+
+
+
+                {% if foods %}
+                {% for i in foods %}
+                <div class="col-lg-4 menu-item">
+                    
+                  <a href="static/media/{{ i.image }}" class="glightbox"><img src="static/media/{{ i.image }}" class="menu-img img-fluid" alt=""></a>
+                  <h4>{{ i.name }}</h4> <br>
+                  <h6><b>Goal : {{ i.goal }}</b></h6>
+                  <p class="ingredients"> 
+                    {{ i.desc }}
+                  </p>
+                  <p > <strong>Incredients: </strong>
+                    {{ i.incredients }}
+                  </p>
+                  <p > <strong>Nutrients: </strong>
+                    {{ i.nutrients }}
+                  </p>
+                  <h6 > <strong>Schedule Food Time: </strong>
+                    {{ i.time }}
+                  </h6>
+                  <p > <strong>Amount: </strong>
+                    {{ i.amount }}
+                  </p>
+                  <p class="price">
+                    {{ i.price }} Rs/-
+                  </p>
+                  <form action="userCart" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="pid" value="{{ i.id }}" hidden>
+                    <input class="form-control mb-2" type="number" name="count" min="1">
+                    <button class="btn btn-success w-100 mt-3">Add to Cart</button>
+                  </form>
+              
+                </div><!-- Menu Item -->
+                {% endfor %}
+                {% else %}
+                <center>
+                    <h3>Sorry, No food available / Select a goal</h3>
+                </center>
+                {% endif %}
+
+
+  
+               
+  
+               
+                
+  
+              </div>
+            </div><!-- End Starter Menu Content -->
+  
+            
+            
+            
+  
+          </div>
+  
+        </div>
+  
+      </section><!-- /Menu Section -->
+
+
+    
+
+    
+
+
+    
+</section>
+<!-- End User Registration Section -->
+
+
+{% if messages %}
+{% for i in messages %}
+<script>
+  alert("{{ i }}")
+</script>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,54 @@
+
+
+{% extends 'index.html' %} 
+{% block content %}
+
+<!-- User Registration Section -->
+<section id="register" class="register section">
+    
+    
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Login</h2>
+        <p><span>Login</span> <span class="description-title">Now</span></p>
+      </div><!-- End Section Title -->
+
+    <!-- End Section Header -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="card shadow-lg border-0 rounded-3 p-4 w-50 mx-auto">
+            <form action="" method="post" class="registration-form" data-aos="fade-up" data-aos-delay="200">
+                {% csrf_token %}
+                <div class="row gy-3 text-center">
+                    
+                    <div class="col-md-8 mx-auto">
+                        <input type="email" id="email" name="username" class="form-control" placeholder="Username" required>
+                    </div>
+                    
+                    <div class="col-md-8 mx-auto">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    
+                    <div class="col-12 mt-3">
+                        <button type="submit" class="btn btn-primary px-4 py-2">Login</button>
+                    </div>
+                    <center>Don't have an account?Register Now <br>
+                        <a href="/userReg" style="color: blue;">Register as User</a> | <a href="/deliveryReg" style="color: blue;">Register as Delivery Team</a> |
+                        <a href="/supplierReg" style="color: blue;">Register as Supplier</a>
+                    </center>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</section>
+<!-- End User Registration Section -->
+
+{% if msg %}
+<script>
+  alert("{{ msg }}")
+</script>
+{% endif %}
+
+{% endblock %}
+

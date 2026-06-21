@@ -1,0 +1,122 @@
+{% extends 'adminHome.html' %} 
+{% block content %}
+
+
+<!-- User Registration Section -->
+<section id="register" class="register section">
+    
+    <!-- Menu Section -->
+    <section id="menu" class="menu section">
+
+        <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2></h2>
+        <p><span>Add</span> <span class="description-title">Food Items</span></p>
+    </div>
+    <!-- End Section Title -->
+  
+        <div class="container">
+  
+          
+  
+          <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+  
+            <div class="tab-pane fade active show" id="menu-starters">
+  
+              
+  
+              <div class="row gy-5">
+                {% for i in food %}
+          
+           
+                <div class="col-lg-4 menu-item">
+                  <a href="static/media/{{ i.image }}" class="glightbox"><img src="static/media/{{ i.image }}" class="menu-img img-fluid" alt=""></a>
+                  <h4>{{ i.name }}</h4> <br>
+                  <h6><b>Goal : {{ i.goal }}</b></h6>
+                  <p class="ingredients"> 
+                    {{ i.desc }}
+                  </p>
+                  <p > <strong>Incredients: </strong>
+                    {{ i.incredients }}
+                  </p>
+                  <p > <strong>Nutrients: </strong>
+                    {{ i.nutrients }}
+                  </p>
+                  <h6 > <strong>Schedule Food Time: </strong>
+                    {{ i.time }}
+                  </h6>
+                  <p > <strong>Amount: </strong>
+                    {{ i.amount }}
+                  </p>
+                  <p class="price">
+                    {{ i.price }} Rs/-
+                  </p>
+                  {% if i.status != "Rejected" %}
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="id" value="{{ i.id }}" hidden>
+                   <input  type="number" name="price" value="{{ i.price }}" min="1" id="">
+                   <button type="submit"  class="btn btn-info">Change</button><br><br>
+                   
+                  </form>
+                  {% endif %} 
+              
+                  
+                  {% if i.status == "Request Pending" %}
+                  <a href="/adminApproveFood?id={{ i.id }}&status=Approved" class="btn btn-success" >Approve</a>
+                  <a href="/adminApproveFood?id={{ i.id }}&status=Rejected" class="btn btn-danger">Reject</a>
+                 {% else %}
+                 <center><h2 style="color: red;"><strong>{{ i.status }}</strong></h2></center>
+                 {% endif %}
+              
+                
+
+
+
+
+
+                </div><!-- Menu Item -->
+                {% endfor %}
+
+
+  
+               
+  
+               
+                
+  
+              </div>
+            </div><!-- End Starter Menu Content -->
+  
+            
+            
+            
+  
+          </div>
+  
+        </div>
+  
+      </section><!-- /Menu Section -->
+
+
+    
+
+    
+
+
+    
+</section>
+<!-- End User Registration Section -->
+
+
+
+
+{% if messages %}
+{% for i in messages %}
+<script>
+  alert("{{ i }}")
+</script>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

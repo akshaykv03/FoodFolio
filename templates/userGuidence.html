@@ -1,0 +1,90 @@
+{% extends 'userHome.html' %} 
+{% block content %}
+
+
+<!-- User Registration Section -->
+<section id="register" class="register section">
+    
+
+
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2></h2>
+        <p><span>View</span> <span class="description-title">Guidence</span></p>
+    </div>
+    <!-- End Section Title -->
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class=" rounded-3 p-4 w-100 mx-auto">
+            <table class="table table-striped table-bordered text-center align-middle shadow">
+                <tr class="table-dark">
+                <th>SL.NO</th>
+                <th>DATE</th>
+                <th>UPLOADED</th>
+                <th>GOAL</th>
+                <th>VIEW FILE</th>
+               
+                </tr>
+                {% for i in data %}
+                
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.date }}</td>
+                    <td>{{ i.shop.comapny_name }}</td>
+                    <td>{{ i.goal }}</td>
+                    
+                    <td><a href="/guidenceOpen?file={{ i.file }}">📂Open file</a></td>
+                  </td>
+                
+                </tr>
+                
+                {% endfor %}
+            </table>
+           
+        </div>
+    </div>
+
+
+    
+
+    
+
+    
+
+
+    
+</section>
+<!-- End User Registration Section -->
+
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        alert("Please fill all required fields before submitting!");
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
+
+{% if messages %}
+{% for i in messages %}
+<script>
+  alert("{{ i }}")
+</script>
+{% endfor %}
+{% endif %}
+   
+
+
+<br><br><br><br><br><br>
+{% endblock %}

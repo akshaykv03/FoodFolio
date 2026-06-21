@@ -1,0 +1,38 @@
+{% extends 'adminHome.html' %} 
+{% block content %}
+
+<!-- Users Management Section -->
+<section id="users" class="users section">
+
+    <!-- Section Title -->
+    <div class="container section-title text-center" data-aos="fade-up">
+        <h2 class="fw-bold">Registered Delivery Team</h2>
+        <p><span>Manage</span> <span class="description-title">Delivery Team<br></span></p>
+    </div>
+    <!-- End Section Title -->
+
+    <div class="container">
+        <div class="row gy-4">
+            {% for i in data %}
+            <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                <div class="card shadow-lg border-0 rounded-3 p-3 w-100">
+                    <div class="card-body text-center ">
+                        <h2 class="member-info">{{ i.name }}</h2>
+                        <p class="text-muted mb-1"><strong>Email:</strong> {{ i.email }}</p>
+                        <p class="text-muted mb-1"><strong>Phone:</strong> {{ i.phone }}</p>
+                        <p class="text-muted"><strong>Address:</strong> {{ i.address }}</p>
+                        {% if i.user.is_active %}
+			            <a href="/adminApproveDelivery?id={{i.user.id}}&status=0" class="btn btn-danger">Make Inactive</a>
+			            {% else %}
+			            <a href="/adminApproveDelivery?id={{i.user.id}}&status=1" class="btn btn-success">Make Active</a>
+			            {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- End Users Management Section -->
+
+{% endblock %}

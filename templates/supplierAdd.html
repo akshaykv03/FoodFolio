@@ -1,0 +1,173 @@
+{% extends 'supplierHome.html' %} 
+{% block content %}
+
+
+<!-- User Registration Section -->
+<section id="register" class="register section">
+    
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2></h2>
+        <p><span>Add</span> <span class="description-title">Food Items</span></p>
+    </div>
+    <!-- End Section Title -->
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="card shadow-lg border-0 rounded-3 p-4 w-50 mx-auto">
+            <form action="" method="post" enctype="multipart/form-data" class="registration-form needs-validation" novalidate data-aos="fade-up" data-aos-delay="200">
+                {% csrf_token %}
+                <div class="row g-3">
+                    
+                    <div class="col-12">
+                        <select name="goal" id="" class="form-control" required>
+                            <option value="">Enter nutrition goal</option>
+                            <option value="Weight loss">Weight loss</option>
+                            <option value="Weight Gain">Weight Gain</option>
+                            <option value="Balanced Diet">Balanced Diet</option>
+                        </select>
+                        <!-- <input type="text" id="name" name="goal" class="form-control" placeholder="Enter nutrition goal" required> -->
+                    </div>
+                    <div class="col-12">
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter food item name" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="file" id="name" name="image" class="form-control" placeholder="Image" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" id="name" name="desc" class="form-control" placeholder="Add Description" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" id="name" name="incredients"  class="form-control" placeholder="Incredients" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" id="name" name="Nutrients"  class="form-control" placeholder="Nutrients" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" id="name" name="time"  class="form-control" placeholder="Schedule food time" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" id="name" name="amount"  class="form-control" placeholder="Amount"  required>
+                    </div>
+                    <div class="col-12">
+                        <input type="number" id="name" name="price"  class="form-control" placeholder="Price" min="1" required>
+                    </div>
+                    
+                    
+                    <div class="col-12 text-center mt-3">
+                        <button type="submit" class="btn btn-primary px-4 py-2">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu section">
+
+        <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2></h2>
+        <p><span>Added</span> <span class="description-title">Food Items</span></p>
+    </div>
+    <!-- End Section Title -->
+  
+        <div class="container">
+  
+          
+  
+          <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+  
+            <div class="tab-pane fade active show" id="menu-starters">
+  
+              
+  
+              <div class="row gy-5">
+                {% for i in food %}
+          
+           
+                <div class="col-lg-4 menu-item">
+                  <a href="static/media/{{ i.image }}" class="glightbox"><img src="static/media/{{ i.image }}" class="menu-img img-fluid" alt=""></a>
+                  <h4>{{ i.name }}</h4> <br>
+                  <h6><b>Goal : {{ i.goal }}</b></h6>
+                  <p class="ingredients"> 
+                  <p class="ingredients"> 
+                    {{ i.desc }}
+                  </p>
+                  <p > <strong>Incredients: </strong>
+                    {{ i.incredients }}
+                  </p>
+                  <p > <strong>Nutrients: </strong>
+                    {{ i.nutrients }}
+                  </p>
+                  <h6 > <strong>Schedule Food Time: </strong>
+                    {{ i.time }}
+                  </h6>
+                  <p > <strong>Amount: </strong>
+                    {{ i.amount }}
+                  </p>
+                  <p class="price">
+                    {{ i.price }} Rs/-
+                  </p>
+                  <h3>Admin {{ i.status }}</h3>
+                </div><!-- Menu Item -->
+                {% endfor %}
+  
+               
+  
+               
+  
+               
+                
+  
+              </div>
+            </div><!-- End Starter Menu Content -->
+  
+            
+            
+            
+  
+          </div>
+  
+        </div>
+  
+      </section><!-- /Menu Section -->
+
+
+    
+
+    
+
+
+    
+</section>
+<!-- End User Registration Section -->
+
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        alert("Please fill all required fields before submitting!");
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
+
+{% if messages %}
+{% for i in messages %}
+<script>
+  alert("{{ i }}")
+</script>
+{% endfor %}
+{% endif %}
+
+{% endblock %}
